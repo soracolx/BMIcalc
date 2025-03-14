@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<head>
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            background-color: #f8c8dc; 
+            font-family: Georgia, serif; 
+            text-align: center;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h2 {
+            font-size: 28px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 8px;
+            font-size: 18px;
+            border-radius: 8px;
+            border: 2px solid #d17b8f; 
+            text-align: center;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #b56576;
+        }
+
+        button {
+            background-color: #d17b8f;
+            color: white;
+            cursor: pointer;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        button:hover {
+            background-color: #b56576;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 250px;
+            border: 2px solid #d17b8f; 
+        }
+
+        .popup button {
+            margin-top: 10px;
+            background-color: #d17b8f;
+            border: none;
+            padding: 8px 12px;
+            border-radius
+			cursor: pointer;
+            color: white;
+        }
+
+        .popup button:hover {
+            background-color: #b56576;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>BMI Calculator</h2>
+    <label>Weight (kg):</label>
+    <input id="weight" type="number"><br>
+    <label>Height (cm):</label>
+    <input id="height" type="number"><br>
+    <button onclick="calculateBMI()">CALCULATE</button>
+
+    <div id="popup" class="popup">
+        <p id="popup-text"></p>
+        <button onclick="closePopup()">OK, THANKS!</button>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            let weight = document.getElementById("weight").value;
+            let height = document.getElementById("height").value;
+
+            if (!weight || !height) {
+                showPopup("Please enter both weight and height!");
+                return;
+            }
+
+            height = height / 100; // Convert cm to meters
+            let bmi = weight / (height * height);
+            let result = "";
+
+            if (bmi < 18.5) result = "You're skinny!";
+            else if (bmi < 25) result = "You're average!";
+            else result = "You're fat!";
+
+            showPopup(`Your BMI is: ${bmi.toFixed(2)}<br>${result}`);
+        }
+
+        function showPopup(message) {
+            document.getElementById("popup-text").innerHTML = message;
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
